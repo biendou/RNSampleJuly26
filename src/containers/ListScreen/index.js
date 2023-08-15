@@ -76,7 +76,7 @@ const ListScreen = props => {
         onPress={() => {
           props.navigation.navigate('CartScreen');
         }}>
-        <Text>Go to cart</Text>
+        <Text style={{width: 50, backgroundColor: "blue"}}>Go to cart</Text>
       </TouchableOpacity>
 
       <FlatList
@@ -93,11 +93,11 @@ const ListScreen = props => {
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
-              <View style={{flex: 1}}>
+              <View style={{flex: 1, backgroundColor: "teal"}}>
                 <Text>{item.name}</Text>
                 <Text>{item.details}</Text>
               </View>
-              <Text style={{width: 50}}>{item.price}</Text>
+              <Text style={{width: 50, backgroundColor: "teal"}}>{item.price}</Text>
               <TouchableOpacity
                 onPress={() => {
                   dispatch(cartActions.addToCart(item));
@@ -108,7 +108,7 @@ const ListScreen = props => {
                   alignItems: 'center',
                   padding: 10,
                 }}>
-                <Text numberOfLines={2}>Add to cart</Text>
+                <Text style={{width: 50, backgroundColor: "teal"}} numberOfLines={2}>Add to cart</Text>
               </TouchableOpacity>
             </View>
           );

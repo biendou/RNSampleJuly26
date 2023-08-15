@@ -1,10 +1,11 @@
 import {} from 'react';
-import {View, Text, FlatList} from 'react-native';
-import {useSelector} from 'react-redux';
+import {View, Text, FlatList, Button, TouchableOpacity} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {cartActions} from '../../features/cart/cartSlice';
 
 const CartScreen = props => {
   const cartItems = useSelector(state => state.cart.cartItems);
-
+  const dispatch = useDispatch();
   return (
     <View style={{flex: 1}}>
       <FlatList
@@ -22,15 +23,63 @@ const CartScreen = props => {
                 alignItems: 'center',
               }}>
               <View style={{flex: 1}}>
-                <Text>{item.item.name}</Text>
-                <Text>{item.item.details}</Text>
+                <Text style={{ backgroundColor: "teal"}}>{item.item.name}</Text>
+                <Text style={{ backgroundColor: "teal"}}>{item.item.details}</Text>
               </View>
-              <Text style={{width: 80}}>Quantity: {item.quantity}</Text>
-              <Text style={{width: 50}}>{item.item.price}</Text>
+              <Text style={{width: 80, backgroundColor: "teal"}}>Quantity: {item.quantity}</Text>
+              <Text style={{width: 50, backgroundColor: "teal"}}>{item.item.price}</Text>
+              <TouchableOpacity style={{
+    backgroundColor: 'blue',
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }} onPress={() => {
+    console.log('remove item');
+    dispatch(cartActions.addToCart(item.item));
+  }}>
+        <Text style={{
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  }}>  +  </Text>
+      </TouchableOpacity>
+              <TouchableOpacity style={{
+                marginLeft: 10,
+    backgroundColor: 'red',
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }} onPress={() => {
+    console.log('remove item');
+    dispatch(cartActions.removeFromCart(item.item));
+  }}>
+        <Text style={{
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  }}>  -  </Text>
+      </TouchableOpacity>
             </View>
           );
         }}
       />
+      <TouchableOpacity style={{
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 20,
+  }} onPress={() => {
+    dispatch(cartActions.clearCart());
+  }}>
+        <Text style={{
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  }}>Reset cart</Text>
+      </TouchableOpacity>
+      
     </View>
   );
 };
